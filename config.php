@@ -19,7 +19,7 @@ define('LOCKOUT_MINUTES',     30);
 define('BCRYPT_COST',         12);
 define('APP_NAME',            'Cofre de Senhas');
 define('APP_VERSION',         '1.0.0');
-define('BASE_URL',            'http://localhost:8081/hm_cofre');
+define('BASE_URL',            'https://herculano-ti-cofresenhas.tn2ipt.easypanel.host/');
 
 // ─── Timezone ─────────────────────────────────────────────────────────────
 date_default_timezone_set('America/Sao_Paulo');
