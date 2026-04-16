@@ -1,0 +1,31 @@
+# ── Segurança ──────────────────────────────────────────────────────────────
+Options -Indexes
+
+# Bloqueia acesso direto a arquivos PHP internos
+<FilesMatch "^(config|bootstrap|setup)\.php$">
+  <RequireAll>
+    Require local
+  </RequireAll>
+</FilesMatch>
+
+# Bloqueia acesso direto à pasta src/
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Proíbe acesso direto a src/
+  RewriteRule ^src/   - [F,L]
+
+  # Redireciona raiz para index.php
+  RewriteRule ^$      index.php [L]
+</IfModule>
+
+# Cabeçalhos de segurança
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Desabilita assinatura do servidor
+ServerSignature Off
