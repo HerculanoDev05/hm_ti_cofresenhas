@@ -5,7 +5,7 @@ declare(strict_types=1);
 define('DB_HOST',    'herculano_mysql_hm');
 define('DB_PORT',    '3306');
 define('DB_NAME',    'hm_cofre');
-define('DB_USER',    'hm_mysql');
+define('DB_USER',    'root');
 define('DB_PASS',    'H3r(Ul@n0');
 define('DB_CHARSET', 'utf8mb4');
 
