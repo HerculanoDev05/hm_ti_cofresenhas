@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 // ─── Banco de Dados ───────────────────────────────────────────────────────
-define('DB_HOST',    'herculano_mysql_hm');
+define('DB_HOST',    'mysql_hm');
 define('DB_PORT',    '3306');
 define('DB_NAME',    'hm_cofre');
 define('DB_USER',    'root');
