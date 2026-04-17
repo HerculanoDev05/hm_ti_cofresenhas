@@ -852,10 +852,11 @@ async function savePolicy() {
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-// Fecha modal ao clicar no overlay
-document.querySelectorAll('.modal-overlay').forEach(el => {
-  el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
-});
+// Fecha modal ao clicar no overlay - apenas para modalReveal
+const modalReveal = document.getElementById('modalReveal');
+if (modalReveal) {
+  modalReveal.addEventListener('click', e => { if (e.target === modalReveal) modalReveal.classList.remove('open'); });
+}
 
 function esc(str) {
   if (!str) return '';
