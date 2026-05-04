@@ -169,15 +169,19 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .pill:hover, .pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 /* ─── Credentials list ───────────────────────────────────────────────────── */
-.cred-list { display: flex; flex-direction: column; gap: .5rem; }
+.cred-list { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .5rem; }
 .cred-card  { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-lg);
-  padding: .85rem 1rem; transition: border-color var(--transition); }
+  padding: .6rem .75rem; transition: border-color var(--transition); }
 .cred-card:hover { border-color: var(--border2); }
-.cred-top   { display: flex; justify-content: space-between; align-items: flex-start; gap: .75rem; }
+.cred-top   { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
 .cred-meta  { flex: 1; min-width: 0; }
 .cred-title { font-size: .9rem; font-weight: 500; color: var(--text); white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis; }
-.cred-user  { font-size: .78rem; color: var(--text2); margin-top: 2px; font-family: var(--font-mono); }
+.cred-url-btn { display: inline-block; margin-top: 4px; font-size: .7rem; max-width: 260px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;
+  font-family: var(--font-mono); color: #f97316; text-decoration: none; }
+.cred-url-btn:hover { text-decoration: underline; }
+.cred-user  { font-size: .78rem; color: var(--text2); margin-top: 2px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cred-tags  { display: flex; gap: .3rem; align-items: center; flex-shrink: 0; }
 .tag        { font-size: .68rem; padding: 2px 7px; border-radius: 99px; font-weight: 500; }
 .tag-nivel1 { background: rgba(29,184,122,.15); color: #6ee7b7; }
@@ -185,9 +189,9 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .tag-nivel3 { background: rgba(139,92,246,.15); color: #a78bfa; }
 .tag-nivel4 { background: rgba(245,158,11,.15); color: #fcd34d; }
 .tag-cat    { background: var(--bg4); color: var(--text2); border: 1px solid var(--border); }
-.cred-pass  { display: flex; align-items: center; gap: .5rem; margin-top: .65rem; }
-.pass-display { flex: 1; font-family: var(--font-mono); font-size: .82rem;
-  color: var(--text2); padding: .3rem .6rem; background: var(--bg4);
+.cred-pass  { display: flex; align-items: center; gap: .35rem; margin-top: .45rem; }
+.pass-display { flex: 1; font-family: var(--font-mono); font-size: .75rem;
+  color: var(--text2); padding: .2rem .5rem; background: var(--bg4);
   border-radius: var(--radius); min-width: 0; word-break: break-all; }
 .pass-display.revealed { color: var(--green); }
 .cred-actions { display: flex; gap: .3rem; }
