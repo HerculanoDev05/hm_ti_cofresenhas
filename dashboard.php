@@ -498,6 +498,7 @@ function renderCreds(list) {
       <div class="cred-top">
         <div class="cred-meta">
           <div class="cred-title">${esc(c.titulo)}</div>
+          ${c.url ? `<div class="cred-url">🔗 <a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.url)}</a></div>` : ''}
           <div class="cred-user">👤 ${esc(c.usuario_login)}</div>
         </div>
         <div class="cred-tags">

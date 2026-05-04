@@ -177,6 +177,10 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .cred-meta  { flex: 1; min-width: 0; }
 .cred-title { font-size: .9rem; font-weight: 500; color: var(--text); white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis; }
+.cred-url   { font-size: .75rem; color: var(--accent); margin-top: 2px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-width: 280px; }
+.cred-url a { color: var(--accent); text-decoration: none; }
+.cred-url a:hover { text-decoration: underline; }
 .cred-user  { font-size: .78rem; color: var(--text2); margin-top: 2px; font-family: var(--font-mono); }
 .cred-tags  { display: flex; gap: .3rem; align-items: center; flex-shrink: 0; }
 .tag        { font-size: .68rem; padding: 2px 7px; border-radius: 99px; font-weight: 500; }
