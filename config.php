@@ -25,18 +25,7 @@ define('BCRYPT_COST',         12);
 define('APP_NAME',            'Cofre de Senhas');
 define('APP_VERSION',         '1.0.0');
 define('BASE_URL',            'https://cofresenhas.grupoherculano.tech/');
-// BASE_URL detectado automaticamente a partir da requisição atual.
-// Pode ser sobrescrito pela variável de ambiente BASE_URL em produção.
-if (getenv('BASE_URL')) {
-    define('BASE_URL', rtrim(getenv('BASE_URL'), '/'));
-} else {
-    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host   = $_SERVER['HTTP_HOST'] ?? 'https://cofresenhas.grupoherculano.tech/';
-    $dir    = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
-    // Sobe um nível se estiver dentro de /api ou similar
-    if (str_ends_with($dir, '/api')) $dir = dirname($dir);
-    define('BASE_URL', $scheme . '://' . $host . ($dir === '/' ? '' : $dir));
-}
+
 
 // ─── Timezone ─────────────────────────────────────────────────────────────
 date_default_timezone_set('America/Sao_Paulo');
