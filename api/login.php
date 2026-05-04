@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(['ok' => false, 'error' => 'Método inválido.'], 405);
 }
 
-$body     = json_decode(file_get_contents('php://input'), true) ?? [];
+$body     = readJsonBody();
 $username = trim($body['username'] ?? '');
 $senha    = trim($body['password'] ?? '');
 

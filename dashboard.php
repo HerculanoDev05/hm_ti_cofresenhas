@@ -434,13 +434,30 @@ async function loadCategorias() {
 
 function renderCatPills() {
   const wrap = document.getElementById('catPills');
-  wrap.innerHTML = `<button class="pill active" onclick="setCat('all',this)">Todas</button>` +
-    allCats.map(c => `<button class="pill" onclick="setCat(${c.id},this)">${c.icone} ${c.nome}</button>`).join('');
+  const todas = document.createElement('button');
+  todas.className = 'pill active';
+  todas.textContent = 'Todas';
+  todas.onclick = () => setCat('all', todas);
+  wrap.innerHTML = '';
+  wrap.appendChild(todas);
+  allCats.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'pill';
+    btn.textContent = (c.icone ? c.icone + ' ' : '') + c.nome;
+    btn.onclick = () => setCat(c.id, btn);
+    wrap.appendChild(btn);
+  });
 }
 
 function populateCatSelect() {
   const sel = document.getElementById('credCat');
-  sel.innerHTML = allCats.map(c => `<option value="${c.id}">${c.icone} ${c.nome}</option>`).join('');
+  sel.innerHTML = '';
+  allCats.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = (c.icone ? c.icone + ' ' : '') + c.nome;
+    sel.appendChild(opt);
+  });
 }
 
 function setCat(catId, btn) {

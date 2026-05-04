@@ -8,10 +8,12 @@ class Auth
     public static function startSession(): void
     {
         if (session_status() === PHP_SESSION_NONE) {
+            $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                    || ($_SERVER['SERVER_PORT'] ?? 80) == 443;
             session_set_cookie_params([
                 'lifetime' => 0,
                 'path'     => '/',
-                'secure'   => false,
+                'secure'   => $isHttps,
                 'httponly' => true,
                 'samesite' => 'Strict',
             ]);
@@ -178,10 +180,8 @@ class Auth
                     'UPDATE tentativas_login SET tentativas=?, bloqueado_ate=?, ultimo_em=NOW() WHERE id=?',
                     [$novas, $ate, $t['id']]
                 );
-                Database::execute(
-                    "UPDATE usuarios SET bloqueado=1, motivo_bloqueio='Excesso de tentativas de login' WHERE username=?",
-                    [$username]
-                );
+                // Bloqueio temporário apenas na tabela tentativas_login.
+                // Não bloqueia a conta permanentemente para evitar DoS.
             } else {
                 Database::execute(
                     'UPDATE tentativas_login SET tentativas=?, ultimo_em=NOW() WHERE id=?',
@@ -197,15 +197,14 @@ class Auth
     }
 
     // ─── IP ───────────────────────────────────────────────────────────────
-
+    // Usa apenas REMOTE_ADDR (socket real) para evitar spoofing via headers.
+    // Se o app estiver atrás de um proxy confiável, configure o proxy para
+    // reescrever REMOTE_ADDR (ex: Traefik realIPHeader) em vez de confiar
+    // em X-Forwarded-For enviado pelo cliente.
     private static function getIp(): string
     {
-        foreach (['HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR'] as $k) {
-            if (!empty($_SERVER[$k])) {
-                $ip = trim(explode(',', $_SERVER[$k])[0]);
-                if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
-            }
-        }
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+        if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
         return '0.0.0.0';
     }
 }

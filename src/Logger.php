@@ -53,12 +53,8 @@ class Logger
 
     private static function getIp(): string
     {
-        foreach (['HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR'] as $k) {
-            if (!empty($_SERVER[$k])) {
-                $ip = trim(explode(',', $_SERVER[$k])[0]);
-                if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
-            }
-        }
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+        if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
         return '0.0.0.0';
     }
 }

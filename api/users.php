@@ -29,7 +29,7 @@ function listUsers(): never {
 function addUser(): never {
     Auth::requireLevel(4);
     verifyCsrf();
-    $body    = json_decode(file_get_contents('php://input'),true)??[];
+    $body    = readJsonBody();
     $username= trim($body['username']??'');
     $email   = trim($body['email']??'');
     $nome    = trim($body['nome_completo']??'');
@@ -55,7 +55,7 @@ function addUser(): never {
 
 function editUser(): never {
     verifyCsrf();
-    $body    = json_decode(file_get_contents('php://input'),true)??[];
+    $body    = readJsonBody();
     $id      = (int)($body['id']??0);
     $myLevel = Auth::nivel();
     $target  = Database::queryOne('SELECT * FROM usuarios WHERE id=?',[$id]);
@@ -81,7 +81,7 @@ function editUser(): never {
 function toggleUser(): never {
     Auth::requireLevel(4);
     verifyCsrf();
-    $body   = json_decode(file_get_contents('php://input'),true)??[];
+    $body   = readJsonBody();
     $id     = (int)($body['id']??0);
     $action = $body['action']??'';
     $user   = Database::queryOne('SELECT * FROM usuarios WHERE id=?',[$id]);

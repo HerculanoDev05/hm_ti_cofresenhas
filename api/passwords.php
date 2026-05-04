@@ -55,7 +55,7 @@ function revealPassword(): never {
 function addPassword(): never {
     Auth::requireLevel(2);
     verifyCsrf();
-    $body        = json_decode(file_get_contents('php://input'),true)??[];
+    $body        = readJsonBody();
     $titulo      = trim($body['titulo']??'');
     $userLogin   = trim($body['usuario_login']??'');
     $senhaPlain  = $body['senha']??'';
@@ -80,7 +80,7 @@ function addPassword(): never {
 function editPassword(): never {
     Auth::requireLevel(2);
     verifyCsrf();
-    $body      = json_decode(file_get_contents('php://input'),true)??[];
+    $body      = readJsonBody();
     $id        = (int)($body['id']??0);
     $nivel     = Auth::nivel();
     $existing  = Database::queryOne('SELECT * FROM senhas WHERE id=? AND ativo=1 AND nivel_acesso<=?',[$id,$nivel]);

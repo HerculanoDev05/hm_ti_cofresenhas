@@ -3,10 +3,6 @@ declare(strict_types=1);
 
 class Policy
 {
-    /**
-     * Verifica todas as políticas ativas para o usuário/nível.
-     * Lança PolicyException se alguma bloquear o acesso.
-     */
     public static function check(int $userId, int $nivel): void
     {
         $politicas = Database::query(
@@ -58,34 +54,49 @@ class Policy
         $horaIni  = $conf['inicio'] ?? '00:00';
         $horaFim  = $conf['fim']    ?? '23:59';
         $dia      = (int)$now->format('w');
-        $hora     = $now->format('H:i');
+
+        // Comparação numérica (minutos desde meia-noite) para evitar erros lexicográficos.
+        $toMin = static fn(string $h): int => (int)substr($h, 0, 2) * 60 + (int)substr($h, 3, 2);
+        $agoraMin = $toMin($now->format('H:i'));
+        $iniMin   = $toMin($horaIni);
+        $fimMin   = $toMin($horaFim);
 
         if (!in_array($dia, $diasPerm, true)) {
             Logger::log(Logger::POLICY_BLOCK, $nome, false, "Dia $dia não permitido");
             throw new PolicyException("Acesso negado: dia da semana não permitido pela política \"$nome\".");
         }
-        if ($hora < $horaIni || $hora > $horaFim) {
-            Logger::log(Logger::POLICY_BLOCK, $nome, false, "Hora $hora fora do intervalo $horaIni-$horaFim");
+        if ($agoraMin < $iniMin || $agoraMin > $fimMin) {
+            Logger::log(Logger::POLICY_BLOCK, $nome, false, "Hora {$now->format('H:i')} fora do intervalo $horaIni-$horaFim");
             throw new PolicyException("Acesso negado: fora do horário permitido ($horaIni–$horaFim) pela política \"$nome\".");
         }
     }
 
+    // Valida correspondência de IP com suporte a CIDR IPv4.
     private static function ipMatch(string $ip, string $range): bool
     {
-        if (!str_contains($range, '/')) return $ip === $range;
-        [$subnet, $bits] = explode('/', $range);
-        $mask = -1 << (32 - (int)$bits);
-        return (ip2long($ip) & $mask) === (ip2long($subnet) & $mask);
+        if (!str_contains($range, '/')) {
+            return $ip === $range;
+        }
+
+        [$subnet, $bitsStr] = explode('/', $range, 2);
+        $bits = (int)$bitsStr;
+
+        // Rejeitar prefixos inválidos ou IPs malformados.
+        if ($bits < 0 || $bits > 32) return false;
+
+        $ipLong     = ip2long($ip);
+        $subnetLong = ip2long($subnet);
+        if ($ipLong === false || $subnetLong === false) return false;
+
+        $mask = $bits === 0 ? 0 : (~0 << (32 - $bits));
+        return ($ipLong & $mask) === ($subnetLong & $mask);
     }
 
+    // Usa apenas REMOTE_ADDR para evitar spoofing via headers HTTP.
     private static function getIp(): string
     {
-        foreach (['HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR'] as $k) {
-            if (!empty($_SERVER[$k])) {
-                $ip = trim(explode(',', $_SERVER[$k])[0]);
-                if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
-            }
-        }
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) return $ip;
         return '0.0.0.0';
     }
 }

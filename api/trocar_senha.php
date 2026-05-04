@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 verifyCsrf();
 
-$body       = json_decode(file_get_contents('php://input'), true) ?? [];
+$body       = readJsonBody();
 $senhaAtual = $body['senha_atual'] ?? '';
 $novaSenha  = $body['nova_senha']  ?? '';
 

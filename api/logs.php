@@ -41,7 +41,7 @@ function listPolicies(): never {
 function addPolicy(): never {
     Auth::requireLevel(4);
     verifyCsrf();
-    $body  = json_decode(file_get_contents('php://input'),true)??[];
+    $body  = readJsonBody();
     $nome  = trim($body['nome']??'');
     $tipo  = trim($body['tipo']??'');
     $valor = $body['valor']??[];
@@ -57,7 +57,7 @@ function addPolicy(): never {
 function togglePolicy(): never {
     Auth::requireLevel(4);
     verifyCsrf();
-    $body = json_decode(file_get_contents('php://input'),true)??[];
+    $body = readJsonBody();
     Database::execute('UPDATE politicas SET ativo=? WHERE id=?',[(int)($body['ativo']??0),(int)($body['id']??0)]);
     jsonResponse(['ok'=>true]);
 }
