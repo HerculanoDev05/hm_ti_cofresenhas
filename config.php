@@ -30,7 +30,7 @@ if (getenv('BASE_URL')) {
     define('BASE_URL', rtrim(getenv('BASE_URL'), '/'));
 } else {
     $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $host   = $_SERVER['HTTP_HOST'] ?? 'https://cofresenhas.grupoherculano.tech/';
     $dir    = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
     // Sobe um nível se estiver dentro de /api ou similar
     if (str_ends_with($dir, '/api')) $dir = dirname($dir);
