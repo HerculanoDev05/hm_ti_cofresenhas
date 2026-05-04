@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 // ─── Banco de Dados ───────────────────────────────────────────────────────
 // Leia as credenciais de variáveis de ambiente, nunca hardcoded.
-define('DB_HOST',    getenv('DB_HOST')    ?: 'mysql_hm');
+define('DB_HOST',    getenv('DB_HOST')    ?: 'herculano_mysql_hm');
 define('DB_PORT',    getenv('DB_PORT')    ?: '3306');
 define('DB_NAME',    getenv('DB_NAME')    ?: 'hm_cofre');
-define('DB_USER',    getenv('DB_USER')    ?: 'root');
+define('DB_USER',    getenv('DB_USER')    ?: 'hm_mysql');
 define('DB_PASS',    getenv('DB_PASS')    ?: 'H3r(Ul@n0');
 define('DB_CHARSET', 'utf8mb4');
 
@@ -24,6 +24,7 @@ define('LOCKOUT_MINUTES',     30);
 define('BCRYPT_COST',         12);
 define('APP_NAME',            'Cofre de Senhas');
 define('APP_VERSION',         '1.0.0');
+define('BASE_URL',            'https://cofresenhas.grupoherculano.tech/');
 // BASE_URL detectado automaticamente a partir da requisição atual.
 // Pode ser sobrescrito pela variável de ambiente BASE_URL em produção.
 if (getenv('BASE_URL')) {
