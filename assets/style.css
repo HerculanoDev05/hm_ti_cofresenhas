@@ -169,14 +169,14 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .pill:hover, .pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 /* ─── Credentials list ───────────────────────────────────────────────────── */
-.cred-list { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .5rem; }
+.cred-list { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: .5rem; }
 .cred-card  { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-lg);
   padding: .6rem .75rem; transition: border-color var(--transition); }
 .cred-card:hover { border-color: var(--border2); }
 .cred-top   { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
 .cred-meta  { flex: 1; min-width: 0; }
-.cred-title { font-size: .9rem; font-weight: 500; color: var(--text); white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis; }
+.cred-title { font-size: .9rem; font-weight: 500; color: var(--text); white-space: normal;
+  overflow: visible; word-break: break-word; }
 .cred-url-btn { display: inline-block; margin-top: 4px; font-size: .7rem; max-width: 260px;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;
   font-family: var(--font-mono); color: #f97316; text-decoration: none; }
