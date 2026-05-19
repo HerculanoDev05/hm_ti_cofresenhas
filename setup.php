@@ -34,13 +34,13 @@ file_put_contents(__DIR__ . '/setup.lock', date('Y-m-d H:i:s'));
 ?><!DOCTYPE html>
 <html lang="pt-BR">
 <head><meta charset="UTF-8"><title>Setup Cofre</title>
-<style>body{font-family:monospace;max-width:600px;margin:3rem auto;background:#0d0d0d;color:#ffffff}
-h1{color:#1db87a}.ok{color:#1db87a}.err{color:#e24b4a}
-.box{background:#161616;border:1px solid #272727;border-radius:12px;padding:1.5rem;margin-top:1.5rem}
-table{width:100%;border-collapse:collapse}td,th{padding:6px 10px;border-bottom:1px solid #272727;text-align:left}
-th{color:#c8c8c8;font-size:.8rem}
-.warn{background:#2b1d0a;border:1px solid rgba(245,158,11,.4);border-radius:8px;padding:1rem;margin-top:1rem;color:#fcd34d;font-size:.85rem}
-a{color:#C8102E}</style>
+<style>body{font-family:monospace;max-width:600px;margin:3rem auto;background:#f0f4fb;color:#1e293b}
+h1{color:#059669}.ok{color:#059669}.err{color:#dc2626}
+.box{background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem;margin-top:1.5rem}
+table{width:100%;border-collapse:collapse}td,th{padding:6px 10px;border-bottom:1px solid #e2e8f0;text-align:left}
+th{color:#64748b;font-size:.8rem}
+.warn{background:#fffbeb;border:1px solid rgba(217,119,6,.4);border-radius:8px;padding:1rem;margin-top:1rem;color:#92400e;font-size:.85rem}
+a{color:#4f8ef7}</style>
 </head>
 <body>
 <h1>✅ Setup do Cofre de Senhas</h1>

@@ -22,7 +22,7 @@ if (!$user || !$user['trocar_senha']) {
   <title>Trocar Senha — <?= APP_NAME ?></title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     .change-body { display:flex; align-items:center; justify-content:center; min-height:100vh;
       background: radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.07) 0%, transparent 60%),
